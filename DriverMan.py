@@ -1,7 +1,7 @@
 from datetime import date
 
 class DriverMan:
-    def __init__(self, id, name: str, dob: date, sex: str, preferred_layer) -> None:
+    def __init__(self, id: str, name: str, dob: date, sex: str, preferred_layer) -> None:
         self.__id = id
         self.__name = name
         self.__dob = dob

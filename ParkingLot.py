@@ -13,7 +13,7 @@ def space_generator(row, col, size):
     layer: int = min((row, col, size - row - 1, size - col - 1))
     price = calculate_price(size, layer)
 
-    return price
+    return Space(id, price, layer)
 
 
 def calculate_price(size: int, layer: int):

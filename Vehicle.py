@@ -2,10 +2,11 @@
 from datetime import date
 
 class Vehicle:
-    def __init__(self, plate, mark, year):
+    def __init__(self, plate: str, mark: str, year: int, owner_id: str):
         self.__plate = plate
         self.__mark = mark
         self.__year = year
+        self.__owner_id = owner_id
     
 
     @property
@@ -21,6 +22,11 @@ class Vehicle:
     @property
     def year(self):
         return self.__year
+    
+    
+    @property
+    def owner_id(self):
+        return self.__owner_id
 
 
     @property
