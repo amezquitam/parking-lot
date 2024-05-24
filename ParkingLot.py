@@ -7,33 +7,36 @@ BYTECODE_A = 0x0041
 
 def space_generator(row, col, size):
     # id generation. Note 0x0041 is 'A' in bytecode
-    id = chr(BYTECODE_A + row) + str(col)
+    id = chr(BYTECODE_A + row) + str(col + 1)
 
     # layer represents "profundity"
+    layer: int = min((row, col, size - row - 1, size - col - 1))
+    price = calculate_price(size, layer)
+
+    return price
+
+
+def calculate_price(size: int, layer: int):
     layer_counter = int(size / 2)
-    for layer in range(layer_counter):
-        first = layer
-        last = size - layer - 1
-        if row == first or col == first or row == last or col == last:
-            price = size * 1000 * (layer_counter - layer)
-    
-    return Space(id, price)
+    return size * 1000 * (layer_counter - layer)
 
 
 class ParkingLot:
 
     def __init__(self, size: int):
-        self.__rows = self.__cols = size
+        self.__size = int(size)
         self.spaces = make_matrix(size, space_generator)
     
     
     @property
-    def rows(self):
-        return self.__rows
+    def size(self):
+        return self.__size
     
 
     @property
-    def cols(self):
-        return self.__cols
-        
-    
+    def available_prices(self):
+        return (calculate_price(self.size, layer) for layer in range(self.layer_count))
+
+    @property
+    def layer_count(self):
+        return int(self.size / 2)

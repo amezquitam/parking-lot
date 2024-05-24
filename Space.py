@@ -2,15 +2,15 @@
 class Space:
 
     def __init__(self, id: str, price: float):
-        self._price = price
-        self._id = id
+        self.__price = price
+        self.__id = id
 
 
     @property
     def id(self): 
-        return self._id
+        return self.__id
     
     
     @property
     def price(self): 
-        return self._price
+        return self.__price
