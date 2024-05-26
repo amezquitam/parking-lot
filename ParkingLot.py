@@ -2,14 +2,12 @@ from Space import Space
 from util import make_matrix
 
 
-BYTECODE_A = 0x0041
-
-
 def space_generator(row, col, size):
     # id generation. Note 0x0041 is 'A' in bytecode
-    id = chr(BYTECODE_A + row) + str(col + 1)
+    letters = 'ABCDEFGHIJ'
+    id = letters[row] + str(col + 1)
 
-    # layer represents "profundity"
+    # layer represents "profundity". 0 means just at matrix border
     layer: int = min((row, col, size - row - 1, size - col - 1))
     price = calculate_price(size, layer)
 
@@ -17,8 +15,13 @@ def space_generator(row, col, size):
 
 
 def calculate_price(size: int, layer: int):
-    layer_counter = int(size / 2)
-    return size * 1000 * (layer_counter - layer)
+    price_map = {
+        6: [10000, 8000, 6000],
+        8: [32000, 24000, 16000, 8000],
+        10: [50000, 40000, 30000, 20000, 10000]
+    }
+    
+    return price_map[size][layer]
 
 
 class ParkingLot:
